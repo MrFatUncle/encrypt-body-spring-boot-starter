@@ -46,7 +46,7 @@ public class AESEncryptUtil {
             generator.init(128, random);
             SecretKey secretKey = generator.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
-            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+            SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(type, key);
             if (type == Cipher.ENCRYPT_MODE) {
