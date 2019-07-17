@@ -27,6 +27,6 @@ public class EncryptBodyConfig {
 
     private String encoding = "UTF-8";
 
-
+    private Boolean on = true;
 
 }
