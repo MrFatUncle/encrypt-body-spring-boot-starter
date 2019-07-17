@@ -71,6 +71,9 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
+        if(!config.getOn()) { //
+            return inputMessage;
+        }
         if(inputMessage.getBody()==null){
             return inputMessage;
         }
