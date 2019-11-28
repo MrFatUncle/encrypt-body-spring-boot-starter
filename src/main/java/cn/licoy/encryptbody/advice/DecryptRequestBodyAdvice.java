@@ -22,8 +22,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -74,6 +77,9 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
         if(config.getOn() != null && !config.getOn()) { //
             return inputMessage;
         }
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        if("true".equals(request.getHeader("isFeign"))) return inputMessage;
+
         if(inputMessage.getBody()==null){
             return inputMessage;
         }
